@@ -1,0 +1,3 @@
+-- Demo data is created by: npm run db:seed
+-- Includes org, users, client, project, ~20 tasks (standalone + project),
+-- 2 custom columns per list, sub-tasks on selected tasks, and task members.
