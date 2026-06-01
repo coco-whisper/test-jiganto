@@ -88,6 +88,7 @@ async function patchViewPreferences(
       filters: patch.filters as unknown as Json,
       kanban_config: patch.kanban_config as unknown as Json,
       calendar_config: patch.calendar_config as unknown as Json,
+      timeline_config: patch.timeline_config as unknown as Json,
     }),
   });
 
