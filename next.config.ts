@@ -6,7 +6,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: __dirname,
-  transpilePackages: ["@dhtmlx/trial-react-gantt"],
 };
 
 export default nextConfig;

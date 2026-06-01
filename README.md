@@ -122,9 +122,10 @@ npm run db:seed
 Creates:
 
 - Organisation: **Jiganto Demo Org**
-- Users: `alex@`, `sam@`, `jordan@` `@demo.jiganto.app` (password: `Demo123!`)
-- Client: **Acme Corp**
-- Project: **Website Redesign**
+- Users: 8 demo accounts `@demo.jiganto.app` (password: `Demo123!`)
+- Clients: **Acme Corp**, **Northwind Trading**, **Globex Industries**, and others
+- Projects: **Website Redesign**, **Mobile App MVP**, **Brand Refresh**, **ERP Integration**
+- ~72 tasks, sub-tasks, comments, and custom columns for realistic local testing
 
 ### 6. Start the app
 

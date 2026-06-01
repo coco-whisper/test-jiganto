@@ -1,0 +1,50 @@
+.jiganto-timeline-chart .timeline-bar {
+  border-radius: 4px;
+  cursor: grab;
+}
+
+.jiganto-timeline-chart .timeline-bar:active {
+  cursor: grabbing;
+}
+
+.jiganto-timeline-chart .timeline-bar-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  cursor: ew-resize;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.jiganto-timeline-chart .timeline-bar:hover .timeline-bar-handle,
+.jiganto-timeline-chart .timeline-bar.is-dragging .timeline-bar-handle {
+  opacity: 1;
+}
+
+.jiganto-timeline-chart .timeline-bar-handle--start {
+  left: 0;
+}
+
+.jiganto-timeline-chart .timeline-bar-handle--end {
+  right: 0;
+}
+
+.jiganto-timeline-chart .timeline-today-line {
+  pointer-events: none;
+}
+
+.jiganto-timeline-chart .timeline-today-label {
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  white-space: nowrap;
+}

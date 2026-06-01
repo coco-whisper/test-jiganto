@@ -1,9 +1,17 @@
 import { addDays, isBefore, parseISO, startOfDay } from "date-fns";
-import type { Task } from "@dhtmlx/trial-react-gantt";
 
 import type { TaskWithMeta } from "@/lib/tasks/client-filter";
 import type { TaskStatus } from "@/lib/database.types";
 import { TASK_STATUS_META } from "@/lib/tasks/constants";
+
+export interface TimelineBar {
+  id: string;
+  name: string;
+  start: Date;
+  end: Date;
+  progress: number;
+  color: string;
+}
 
 export function partitionTimelineTasks(tasks: TaskWithMeta[]) {
   const scheduled: TaskWithMeta[] = [];
@@ -20,7 +28,9 @@ export function partitionTimelineTasks(tasks: TaskWithMeta[]) {
   return { scheduled, unscheduled };
 }
 
-function resolveSpan(task: TaskWithMeta): { start: Date; end: Date } | null {
+export function resolveTaskSpan(
+  task: TaskWithMeta,
+): { start: Date; end: Date } | null {
   const startRaw = task.start_date;
   const dueRaw = task.due_date;
 
@@ -44,29 +54,29 @@ function resolveSpan(task: TaskWithMeta): { start: Date; end: Date } | null {
   return { start, end: addDays(start, 1) };
 }
 
-export function toGanttTask(task: TaskWithMeta): Task | null {
-  const span = resolveSpan(task);
+export function toTimelineBar(task: TaskWithMeta): TimelineBar | null {
+  const span = resolveTaskSpan(task);
   if (!span) return null;
 
   const meta = TASK_STATUS_META[task.status as TaskStatus];
 
   return {
     id: task.id,
-    text: task.name,
-    start_date: span.start,
-    end_date: span.end,
-    progress: Math.min(1, Math.max(0, (task.progress ?? 0) / 100)),
+    name: task.name,
+    start: span.start,
+    end: span.end,
+    progress: Math.min(100, Math.max(0, task.progress ?? 0)),
     color: meta?.color ?? "#6366f1",
   };
 }
 
-export function toGanttTasks(tasks: TaskWithMeta[]): Task[] {
+export function toTimelineBars(tasks: TaskWithMeta[]): TimelineBar[] {
   return tasks
-    .map((task) => toGanttTask(task))
-    .filter((task): task is Task => task !== null);
+    .map((task) => toTimelineBar(task))
+    .filter((bar): bar is TimelineBar => bar !== null);
 }
 
-export function ganttDatesToPatch(
+export function timelineDatesToPatch(
   startDate: Date | undefined,
   endDate: Date | undefined,
 ): { start_date: string | null; due_date: string | null } {

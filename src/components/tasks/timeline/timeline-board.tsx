@@ -1,26 +1,11 @@
 "use client";
 
-import dynamic from "next/dynamic";
-
+import { TimelineChart } from "@/components/tasks/timeline/timeline-chart";
 import { TimelineHeader } from "@/components/tasks/timeline/timeline-header";
 import { TimelineUnscheduledPanel } from "@/components/tasks/timeline/timeline-unscheduled-strip";
-import { Skeleton } from "@/components/ui/skeleton";
 import { partitionTimelineTasks } from "@/lib/tasks/timeline-data";
 import type { TimelineConfig } from "@/lib/tasks/timeline-config";
 import type { TaskWithMeta } from "@/lib/tasks/client-filter";
-
-const TimelineGantt = dynamic(
-  () =>
-    import("@/components/tasks/timeline/timeline-gantt").then(
-      (mod) => mod.TimelineGantt,
-    ),
-  {
-    ssr: false,
-    loading: () => (
-      <Skeleton className="h-[min(520px,calc(100vh-320px))] min-h-[360px] w-full rounded-lg" />
-    ),
-  },
-);
 
 interface TimelineBoardProps {
   tasks: TaskWithMeta[];
@@ -52,7 +37,7 @@ export function TimelineBoard({
       />
 
       {scheduled.length > 0 ? (
-        <TimelineGantt
+        <TimelineChart
           scheduledTasks={scheduled}
           zoom={timelineConfig.zoom}
           onOpenTask={onOpenTask}
